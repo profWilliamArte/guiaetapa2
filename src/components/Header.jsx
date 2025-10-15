@@ -12,11 +12,17 @@ const Header = ({ darkMode, toggleTheme }) => {
     };
 
     const navigate = useNavigate();
+
     const manejoEnvio = (event) => {
         event.preventDefault();
+        if (!txtbuscar.trim()) {
+            alert("Por favor, ingresa un término de búsqueda.");
+            return;
+        }
         navigate('/busquedas', {
-            state: txtbuscar,
+             state: txtbuscar.trim(),
         });
+        setTxtbuscar(''); // Opcional: limpiar el input después de enviar
 
     };
     return (
@@ -65,7 +71,14 @@ const Header = ({ darkMode, toggleTheme }) => {
 
                     </ul>
                     <form className="d-flex" role="search" onSubmit={manejoEnvio}>
-                        <input value={txtbuscar} onChange={manejoTxt} className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <input 
+                            value={txtbuscar} 
+                            onChange={manejoTxt} 
+                            className="form-control me-2" 
+                            ype="search" 
+                            placeholder="Buscar" 
+                            a-label="Search" 
+                        />
                         <button className="btn btn-outline-success" type="submit">Ok</button>
                     </form>
                     <button onClick={toggleTheme} className="btn btn-dark btn-sm ">
