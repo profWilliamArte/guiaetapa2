@@ -340,6 +340,9 @@ importante agregar para reiniciar la tabla
 5. Modal y Detalle
    Permite mostrar más información de un producto en un modal desplegable cuando el usuario da clic en un botón.
 
+importamos los iconos
+        import { FaEye, FaInfoCircle} from 'react-icons/fa'
+
     Paso 1: Añadir botones de acciones en la fila de la tabla
         Incluye un botón para ir a la página de detalle y otro para abrir el modal:
 
@@ -372,7 +375,7 @@ importante agregar para reiniciar la tabla
             <ModalProd item={item} />
         </>
 
-    
+    ----- Crear el ModalProd ni no esta creado ------
 
 //////////////////////////////////////////////////////////////////////////////////
 
