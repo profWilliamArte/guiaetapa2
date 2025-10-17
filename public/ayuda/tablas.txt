@@ -1,4 +1,5 @@
- const formatCurrency = (value) => {
+// Formatos
+const formatCurrency = (value) => {
         const numericValue = Number(value);
         if (isNaN(numericValue)) {
             return '0,00';
@@ -19,6 +20,11 @@
         const integerValue = Math.round(numericValue);
         return integerValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     };
+-----------------------------------------------------------------------
+// Resúmenes globales (asegurando que sean números)
+   const totalStock = datos.reduce((sum, item) => sum + Number(item.stock), 0);
+   const totalInventoryValue = datos.reduce((sum, item) => sum + Number(item.price) * Number(item.stock), 0);
+
 -----------------------------------------------------------------------
 1. Filtrado y Búsqueda
     Permite al usuario buscar o filtrar productos por:
