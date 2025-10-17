@@ -124,24 +124,24 @@ const formatCurrency = (value) => {
     Paso 5: Agregar iconos y eventos a los encabezados de tabla
             Ejemplo para la columna "Precio":
 
-        <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort('price')}>
-            Precio
-            {sortConfig.key === 'price' ? (
-                sortConfig.direction === 'asc' ? <FaSortUp className="ms-1" /> : <FaSortDown className="ms-1" />
-            ) : (
-                <FaSort className="ms-1 text-muted" />
-            )}
+        <th  style={{ cursor: 'pointer' }} onClick={() => handleSort('price')}>
+                Precio
+                {sortConfig.key === 'price' ? (
+                        sortConfig.direction === 'asc' ? <FaSortUp className="ms-2 " /> : <FaSortDown className="ms-2" />
+                ) : (
+                        <FaSort className="ms-2" />
+                )}
         </th>
 
         (Opcional) Aplicar a otras columnas ordenables
         Si decides hacer ordenable otra columna (ej. Stock), haz lo mismo:
 
-        <th scope="col" style={{ cursor: 'pointer' }} onClick={() => handleSort('stock')}>
+        <th style={{ cursor: 'pointer' }} onClick={() => handleSort('stock')}>
             Stock
             {sortConfig.key === 'stock' ? (
-                sortConfig.direction === 'asc' ? <FaSortUp className="ms-1" /> : <FaSortDown className="ms-1" />
+                sortConfig.direction === 'asc' ? <FaSortUp className="ms-2" /> : <FaSortDown className="ms-2" />
             ) : (
-                <FaSort className="ms-1 text-muted" />
+                <FaSort className="ms-2" />
             )}
         </th>
 
