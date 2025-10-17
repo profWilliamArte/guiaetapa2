@@ -156,6 +156,9 @@ const formatCurrency = (value) => {
 
         Este flujo mantiene ordenada y reactiva la lista con poco código y buen rendimiento. 
 
+==== punto clave ======
+{sortedData.map((item) => (
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
     
@@ -185,11 +188,14 @@ const formatCurrency = (value) => {
 
 4. Paginación
     Permite mostrar la lista dividida en páginas para mejorar la usabilidad y rendimiento.
+    importamos los los iconos
+        import { FaAngleDoubleLeft, FaAngleLeft, FaAngleRight, FaAngleDoubleRight} from 'react-icons/fa';
+
 
     Paso 1: Crear estados y variables básicas
 
         const [currentPage, setCurrentPage] = useState(1);
-        const itemsPerPage = 10; // Puedes cambiarlo a 20, 25, etc.
+        const [itemsPerPage, setItemsPerPage] = useState(10);
 
     Paso 2: Calcular el total de páginas
         Se calcula cuántas páginas existen dividiendo el total de elementos entre los ítems por página, 
@@ -211,6 +217,12 @@ const formatCurrency = (value) => {
         const prevPage = () => {
             if (currentPage > 1) setCurrentPage(currentPage - 1);
         };
+
+        const paginatedData = useMemo(() => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                return sortedData.slice(startIndex, startIndex + itemsPerPage);
+        }, [sortedData, currentPage, itemsPerPage]);
+
 
 
     Paso 4: Generar los números de páginas para mostrar
@@ -247,54 +259,81 @@ const formatCurrency = (value) => {
         Se muestra la navegación con botones para ir a la primera, anterior, números intermedios, siguiente y última página. 
         Se deshabilitan botones cuando no son aplicables y se marca la página actual.  
 
-        <div className="d-flex justify-content-between">
-            <nav>
-                <ul className="pagination">
-                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                        <button className="page-link" onClick={() => goToPage(1)} disabled={currentPage === 1}>
-                            <FaAngleDoubleLeft />
-                        </button>
-                    </li>
-                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                        <button className="page-link" onClick={prevPage} disabled={currentPage === 1}>
-                            <FaAngleLeft />
-                        </button>
-                    </li>
-                    {getPageNumbers().map((pageNum, index) => (
-                        <li
-                            key={index}
-                            className={`page-item ${pageNum === currentPage ? 'active' : ''} ${pageNum === '...' ? 'disabled' : ''}`}
-                        >
-                            {pageNum === '...' ? (
-                                <span className="page-link">...</span>
-                                ) : (
+           <div className="col-md-8">
+                    <div className="d-flex justify-content-between">
+                        <nav>
+                            <ul className="pagination">
+                                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                                    <button className="page-link" onClick={() => goToPage(1)} disabled={currentPage === 1}>
+                                        <FaAngleDoubleLeft />
+                                    </button>
+                                </li>
+                                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                                    <button className="page-link" onClick={prevPage} disabled={currentPage === 1}>
+                                        <FaAngleLeft />
+                                    </button>
+                                </li>
+                                {getPageNumbers().map((pageNum, index) => (
+                                    <li
+                                        key={index}
+                                        className={`page-item ${pageNum === currentPage ? 'active' : ''} ${pageNum === '...' ? 'disabled' : ''}`}
+                                    >
+                                        {pageNum === '...' ? (
+                                            <span className="page-link">...</span>
+                                        ) : (
+                                            <button
+                                                className="page-link"
+                                                onClick={() => goToPage(pageNum)}
+                                            >
+                                                {pageNum}
+                                            </button>
+                                        )}
+                                    </li>
+                                ))}
+
+                                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                                    <button className="page-link" onClick={nextPage} disabled={currentPage === totalPages}>
+                                        <FaAngleRight />
+                                    </button>
+                                </li>
+                                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
                                     <button
                                         className="page-link"
-                                            onClick={() => goToPage(pageNum)}
+                                        onClick={() => goToPage(totalPages)}
+                                        disabled={currentPage === totalPages}
                                     >
-                                        {pageNum}
+                                        <FaAngleDoubleRight />
                                     </button>
-                                )}
-                        </li>
-                    ))}
+                                </li>
+                                <li>
+                                    <select
+                                        value={itemsPerPage}
+                                        onChange={(e) => {
+                                            setItemsPerPage(Number(e.target.value));
+                                            setCurrentPage(1); // Reiniciar a página 1 al cambiar items per page
+                                        }}
+                                        className="form-select w-auto d-inline-block ms-2"
+                                    >
+                                        <option value={10}>10</option>
+                                        <option value={20}>20</option>
+                                        <option value={30}>30</option>
+                                        <option value={100}>100</option>
+                                    </select>
+                                </li>
+                            </ul>
 
-                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                        <button className="page-link" onClick={nextPage} disabled={currentPage === totalPages}>
-                            <FaAngleRight />
-                        </button>
-                    </li>
-                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                        <button
-                            className="page-link"
-                            onClick={() => goToPage(totalPages)}
-                            disabled={currentPage === totalPages}
-                            >
-                                <FaAngleDoubleRight />
-                        </button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+                        </nav>
+                    </div>
+                </div>
+
+importante agregar para reiniciar la tabla
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm]);
+
+-----punto clave -----
+{paginatedData.map((item) => (
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
