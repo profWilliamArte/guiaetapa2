@@ -416,30 +416,9 @@ importamos los iconos
         }, [selectedCategory, searchTerm]); // Reinicia al cambiar filtro o búsqueda
 
 
-    Paso 5: Generar resumen por categorías basado en filteredData
-        Esto agrupa los productos filtrados por categoría con totales.
+    
 
-        const categorySummary = useMemo(() => {
-            const summary = {};
-
-            filteredData.forEach(item => {
-                if (!summary[item.category]) {
-                summary[item.category] = {
-                    category: item.category,
-                    productCount: 0,
-                    totalStock: 0,
-                    totalValue: 0
-                };
-                }
-                summary[item.category].productCount += 1;
-                summary[item.category].totalStock += Number(item.stock);
-                summary[item.category].totalValue += Number(item.price) * Number(item.stock);
-            });
-
-        return Object.values(summary).sort((a, b) => a.category.localeCompare(b.category));
-        }, [filteredData]);
-
-    Paso 6: Crear el <select> en el JSX junto al input de búsqueda
+    Paso 5: Crear el <select> en el JSX junto al input de búsqueda
             Colócalo junto al input de búsqueda (en tu div.row):
 
         <div className="col-md-4">
