@@ -42,18 +42,17 @@ const formatCurrency = (value) => {
     Paso 2: Reiniciar la página a 1 al cambiar la búsqueda
         Esto asegura que la paginación vuelva a la primera página cuando se realice un nuevo filtro.
 
-        useEffect(() => {
-            setCurrentPage(1);
-        }, [searchTerm]);
+
   
     Paso 3: Filtrar los datos según el término de búsqueda
         Crea un nuevo arreglo que filtre los productos por nombre, marca o categoría, sin importar mayúsculas o minúsculas.
 
-        const filteredData = datos.filter(item =>
-            item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.brand.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            item.category.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+    const filteredData = datos.filter(item =>
+        (item.title?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+        (item.brand?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+        (item.category?.toLowerCase() || '').includes(searchTerm.toLowerCase())
+
+    );
 
     Paso 4: Crear el campo input vinculado al estado
         El usuario podrá escribir para buscar, y el estado se actualizará automáticamente.
