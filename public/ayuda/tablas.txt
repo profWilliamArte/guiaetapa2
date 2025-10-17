@@ -505,7 +505,7 @@ importamos los iconos
                                         <th className="text-center">Productos</th>
                                         <th className="text-center">Stock Total</th>
                                         <th className="text-end">Valor del Inventario</th>
-                                        <th className="text-end">%</th> {/* Nueva columna */}
+                                        <th className="text-end">%</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -515,7 +515,7 @@ importamos los iconos
                                             <td className="text-center">{cat.productCount}</td>
                                             <td className="text-center">{formatNumber(cat.totalStock)}</td>
                                             <td className="text-end">{formatCurrency(cat.totalValue)}</td>
-                                            <td className="text-end">{cat.percent.toFixed(2)}%</td> {/* Muestra porcentaje */}
+                                            <td className="text-end">{cat.percent.toFixed(2)}%</td> 
                                         </tr>
                                     ))}
                                 </tbody>
@@ -525,7 +525,7 @@ importamos los iconos
                                         <td className="text-center">{globalTotals.productCount}</td>
                                         <td className="text-center">{formatNumber(globalTotals.totalStock)}</td>
                                         <td className="text-end">{formatCurrency(globalTotals.totalValue)}</td>
-                                        <td></td> {/* Columna % vacía para total */}
+                                        <td></td> 
                                     </tr>
                                 </tfoot>
                             </table>
